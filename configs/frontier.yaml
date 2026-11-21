@@ -1,0 +1,17 @@
+# Frontier experiment: does data that expands the solving frontier win over several rounds,
+# even if it loses in round 1? All lineages start from theta_0; rules differ only in selection.
+base: default.yaml
+run_dir: runs/frontier
+
+frontier:
+  base_eval: runs/phase1/eval_k4   # theta_0 sampled evaluation (round 0); reused, not recomputed
+  rules: [random, hard, frontier, mix, rare_first]   # rare_first added after the ablation
+  seeds: [0, 1, 2, 3, 4]       # 3 seeds could not detect a ~1-point crossing in simulation
+  horizon: 3
+  gen_questions: 3000
+  first_samples: 8                 # samples per pool question
+  topup_samples: 24                # extra samples for questions with few successes (8 + 24 = 32)
+  topup_max_correct: 1             # top up questions with <= this many correct in the first 8
+  rare_rate: 0.125                 # "rare success": pass rate <= this
+  max_per_question: 2              # frontier rule: at most this many trajectories per question
+  eval_k: 4

@@ -1,0 +1,12 @@
+# Second model: does rarity-first selection beat standard self-training on another base model?
+# Qwen3-8B in non-thinking mode (already in the server's Hugging Face cache).
+base: frontier.yaml
+model: Qwen/Qwen3-8B
+chat_template_kwargs: {enable_thinking: false}
+run_dir: runs/qwen3
+
+frontier:
+  base_eval: null            # theta_0 is evaluated in this run (no Phase 1 for this model)
+  rules: [random, hard, rare_first, frontier]   # frontier added so both models report the same method
+  seeds: [0, 1, 2, 3, 4]
+  horizon: 3

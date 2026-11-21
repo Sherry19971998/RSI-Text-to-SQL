@@ -1,0 +1,48 @@
+# Stage 1: replicate the training-free rows of LSE Table 1 (guide E.4, R1-0 / R1-a / R1-b / R1-c).
+# Paper settings follow guide E.3 (code defaults differ and must be overridden).
+
+upstream:
+  url: https://github.com/chenyn66/learning-to-self-evolve.git
+  commit: 9eb5eac
+
+model:
+  name: Qwen/Qwen3-4B-Instruct-2507
+  # OpenAI-compatible endpoint read from this env var; if unset, upstream loads the model with local vLLM (GPU).
+  # The API key is read by the OpenAI client from OPENAI_API_KEY; never pass it on the command line.
+  url_env: LSE_MODEL_URL
+
+# The 5 databases of LSE Table 1 / Table 4 (all from full BIRD dev).
+databases: [financial, toxicology, codebase_community, formula_1, card_games]
+seeds: [1, 2, 3]
+
+# Hydra overrides applied to every run (guide E.3).
+paper_overrides:
+  - task=bird
+  - n_round=25
+  - n_sims=10
+  - task.dev_size=50
+  - test_n_eval=8
+  - tree.enabled=true
+  - tree.selection=ucb
+  - tree.metric=dev
+  - tree.ucb_c=2.0
+
+# One entry per method; extra overrides on top of paper_overrides.
+# R1-0 (seed instruction) comes from round 0 of the `lse` runs, so it has no run of its own.
+methods:
+  lse: []                          # R1-a: untrained Qwen3-4B as improver, evolve_mode=self (default)
+  gepa: [optimizer=gepa]           # R1-b
+  textgrad: [evolve_mode=textgrad] # R1-c (upstream reverts on worse holdout by default)
+
+# Smoke test (guide E.8 step 1): one database, tiny budget.
+smoke:
+  database: financial
+  seed: 1
+  overrides: [n_round=2, n_sims=2, task.dev_size=4, test_n_eval=2]
+
+# Paper Table 1, 5-database average, execution accuracy (%).
+paper_targets:
+  seed: 57.2
+  lse: 62.2
+  gepa: 62.8
+  textgrad: 63.1

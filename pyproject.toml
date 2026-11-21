@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rsi-tts"
+version = "0.1.0"
+description = "Long-horizon rollout utility for recursive self-improving Text-to-SQL"
+requires-python = ">=3.9"
+dependencies = [
+    "pyyaml",
+    "sqlglot>=23",
+    "numpy",
+    "scipy",
+]
+
+[project.optional-dependencies]
+# Install vllm first (it pins torch), then `pip install -e ".[gpu]"`.
+gpu = ["vllm>=0.6.3", "transformers>=4.45", "peft>=0.13", "accelerate"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

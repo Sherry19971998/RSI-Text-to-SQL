@@ -1,0 +1,16 @@
+# Ablation of the frontier rule. Each variant removes one component; scored with the official
+# metric (greedy EX on BIRD dev) by scripts/official_eval.py.
+#   frontier_no_cap    all of a question's trajectories back to back instead of one per question
+#   frontier_no_topup  selection from the first 8 samples only (no 32x top-up)
+#   dedup              one per question, random question order: in round 1 this is frontier
+#                      without its pass-rate ordering (the newly-solved tier is empty in round 1)
+#   frontier_no_newly  round 2 only: no newly-solved tier. Its round 1 equals frontier's, so it
+#                      reuses frontier's round-1 lineage (round1_alias) instead of a copy.
+base: frontier.yaml
+run_dir: runs/ablation
+
+frontier:
+  rules: [frontier, frontier_no_newly, frontier_no_cap, frontier_no_topup, dedup]
+  horizon: 2
+  rule_horizon: {frontier_no_cap: 1, frontier_no_topup: 1, dedup: 1}
+  round1_alias: {frontier_no_newly: frontier}

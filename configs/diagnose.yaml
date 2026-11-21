@@ -1,0 +1,11 @@
+# X1/X2 feedback-ladder diagnosis (inference only, no training). See rsi/ladder.py.
+base: default.yaml
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+run_dir: runs/diag/qwen25coder7b
+
+diag:
+  test_file: data/splits/test.jsonl   # BIRD dev (prepare_test.py)
+  levels: [r1, intrinsic, exec, oracle_bit, oracle_clause, oracle_shape]
+  rounds: 3
+  max_new_tokens: 1024
+  n_preview: 5

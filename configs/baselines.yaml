@@ -1,0 +1,11 @@
+# Literature baselines and controls added to the main frontier experiment (same run_dir: the
+# existing random, hard, frontier, mix and rare_first lineages are reused; only new rules run).
+#   informative       DAPO dynamic sampling as SFT selection (questions with 0 < pass rate < 1)
+#   cartography       Dataset Cartography, rounds as epochs (90% most variable + 10% most confident)
+#   random_restart,   same selection as random / frontier, but every round trains a fresh LoRA on
+#   frontier_restart  the base model (STaR / ReST-EM) instead of continuing the previous one; their
+#                     round 1 equals random's / frontier's, so it is reused (round1_alias)
+base: frontier.yaml
+frontier:
+  rules: [random, hard, frontier, mix, rare_first, informative, cartography, random_restart, frontier_restart]
+  round1_alias: {random_restart: random, frontier_restart: frontier}

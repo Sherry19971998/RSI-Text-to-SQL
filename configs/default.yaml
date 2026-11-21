@@ -1,0 +1,69 @@
+# Phase 1: does rollout utility exist?
+model: Qwen/Qwen2.5-Coder-7B-Instruct
+data_dir: data/splits
+run_dir: runs/phase1
+# theta_0 rollouts on the pool split, shared by phase0 and phase1
+pool_rollouts: runs/theta0/pool_rollouts.jsonl
+
+data:
+  seed: 0
+  pool_size: 3000        # questions used for rollout generation
+  util_val_size: 1000    # held-out questions for measuring dP (dbs disjoint from pool)
+  gold_timeout: 60
+
+rollout:
+  n_samples: 8
+  temperature: 0.8
+  top_p: 0.95
+  max_turns: 3           # generate -> execute -> (repair) ...
+  max_new_tokens: 512
+  max_model_len: 8192
+  schema_max_chars: 12000
+  exec_timeout: 10
+  workers: 16
+  seed: 0
+
+eval:
+  split: util_val
+  max_turns: 3
+  max_new_tokens: 512
+
+vllm:
+  gpu_memory_utilization: 0.85
+  max_lora_rank: 64
+  tensor_parallel_size: 1
+  enforce_eager: true    # true skips torch.compile / CUDA graphs: slower, but avoids compile failures
+  flashinfer_sampler: false  # true needs nvcc (CUDA toolkit) for JIT compilation
+
+train:
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  learning_rate: 1.0e-4
+  epochs: 2
+  per_device_batch: 1    # no padding: padded batches produced NaN grads mid-training; x grad_accum 16 = effective batch 16
+  grad_accum: 16
+  max_len: 4096
+
+batches:
+  K: 400                 # trajectories per candidate batch (all execution-correct)
+  seeds: [0, 1, 2]       # training seeds per batch
+  # strategy -> number of batches; structured strategies spread utility, random is the reference
+  plan:
+    random: 16
+    easy: 4
+    hard: 4
+    repair_rich: 4
+    no_repair: 4
+    db_diverse: 4
+    db_narrow: 4
+    dedup: 4
+    dup: 4
+    short: 2
+    long: 2
+
+analysis:
+  icc_go: 0.3            # share of dP variance explained by batch identity
+  p_go: 0.05             # one-way ANOVA p-value across batches
+  bootstrap: 2000

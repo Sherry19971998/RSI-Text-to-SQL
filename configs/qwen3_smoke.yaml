@@ -1,0 +1,12 @@
+# ~20-minute end-to-end check of the Qwen3 setup (non-thinking chat template, LoRA, evaluation).
+base: qwen3.yaml
+run_dir: runs/qwen3_smoke
+
+batches:
+  K: 20
+
+frontier:
+  seeds: [0]
+  horizon: 2
+  gen_questions: 40
+  eval_limit: 40

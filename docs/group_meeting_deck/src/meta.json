@@ -1,0 +1,565 @@
+{
+  "1906.02285": {
+    "title": "SParC: Cross-Domain Semantic Parsing in Context",
+    "authors": [
+      "Yu, Tao",
+      "Zhang, Rui",
+      "Yasunaga, Michihiro",
+      "Tan, Yi Chern",
+      "Lin, Xi Victoria",
+      "Li, Suyi",
+      "Er, Heyang",
+      "Li, Irene",
+      "Pang, Bo",
+      "Chen, Tao",
+      "Ji, Emily",
+      "Dixit, Shreya",
+      "Proctor, David",
+      "Shim, Sungrok",
+      "Kraft, Jonathan",
+      "Zhang, Vincent",
+      "Xiong, Caiming",
+      "Socher, Richard",
+      "Radev, Dragomir"
+    ],
+    "date": "2019/06/05",
+    "comments": "Accepted to ACL 2019, long paper"
+  },
+  "1909.05378": {
+    "title": "CoSQL: A Conversational Text-to-SQL Challenge Towards Cross-Domain Natural Language Interfaces to Databases",
+    "authors": [
+      "Yu, Tao",
+      "Zhang, Rui",
+      "Er, He Yang",
+      "Li, Suyi",
+      "Xue, Eric",
+      "Pang, Bo",
+      "Lin, Xi Victoria",
+      "Tan, Yi Chern",
+      "Shi, Tianze",
+      "Li, Zihan",
+      "Jiang, Youxuan",
+      "Yasunaga, Michihiro",
+      "Shim, Sungrok",
+      "Chen, Tao",
+      "Fabbri, Alexander",
+      "Li, Zifan",
+      "Chen, Luyao",
+      "Zhang, Yuwen",
+      "Dixit, Shreya",
+      "Zhang, Vincent",
+      "Xiong, Caiming",
+      "Socher, Richard",
+      "Lasecki, Walter S",
+      "Radev, Dragomir"
+    ],
+    "date": "2019/09/11",
+    "comments": "Accepted to EMNLP 2019, long paper"
+  },
+  "2009.10795": {
+    "title": "Dataset Cartography: Mapping and Diagnosing Datasets with Training Dynamics",
+    "authors": [
+      "Swayamdipta, Swabha",
+      "Schwartz, Roy",
+      "Lourie, Nicholas",
+      "Wang, Yizhong",
+      "Hajishirzi, Hannaneh",
+      "Smith, Noah A.",
+      "Choi, Yejin"
+    ],
+    "date": "2020/09/22",
+    "comments": "Proceedings of EMNLP 2020"
+  },
+  "2107.03374": {
+    "title": "Evaluating Large Language Models Trained on Code",
+    "authors": [
+      "Chen, Mark",
+      "Tworek, Jerry",
+      "Jun, Heewoo",
+      "Yuan, Qiming",
+      "Pinto, Henrique Ponde de Oliveira",
+      "Kaplan, Jared",
+      "Edwards, Harri",
+      "Burda, Yuri",
+      "Joseph, Nicholas",
+      "Brockman, Greg",
+      "Ray, Alex",
+      "Puri, Raul",
+      "Krueger, Gretchen",
+      "Petrov, Michael",
+      "Khlaaf, Heidy",
+      "Sastry, Girish",
+      "Mishkin, Pamela",
+      "Chan, Brooke",
+      "Gray, Scott",
+      "Ryder, Nick",
+      "Pavlov, Mikhail",
+      "Power, Alethea",
+      "Kaiser, Lukasz",
+      "Bavarian, Mohammad",
+      "Winter, Clemens",
+      "Tillet, Philippe",
+      "Such, Felipe Petroski",
+      "Cummings, Dave",
+      "Plappert, Matthias",
+      "Chantzis, Fotios",
+      "Barnes, Elizabeth",
+      "Herbert-Voss, Ariel",
+      "Guss, William Hebgen",
+      "Nichol, Alex",
+      "Paino, Alex",
+      "Tezak, Nikolas",
+      "Tang, Jie",
+      "Babuschkin, Igor",
+      "Balaji, Suchir",
+      "Jain, Shantanu",
+      "Saunders, William",
+      "Hesse, Christopher",
+      "Carr, Andrew N.",
+      "Leike, Jan",
+      "Achiam, Josh",
+      "Misra, Vedant",
+      "Morikawa, Evan",
+      "Radford, Alec",
+      "Knight, Matthew",
+      "Brundage, Miles",
+      "Murati, Mira",
+      "Mayer, Katie",
+      "Welinder, Peter",
+      "McGrew, Bob",
+      "Amodei, Dario",
+      "McCandlish, Sam",
+      "Sutskever, Ilya",
+      "Zaremba, Wojciech"
+    ],
+    "date": "2021/07/07",
+    "comments": "corrected typos, added references, added authors, added acknowledgements"
+  },
+  "2203.11171": {
+    "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+    "authors": [
+      "Wang, Xuezhi",
+      "Wei, Jason",
+      "Schuurmans, Dale",
+      "Le, Quoc",
+      "Chi, Ed",
+      "Narang, Sharan",
+      "Chowdhery, Aakanksha",
+      "Zhou, Denny"
+    ],
+    "date": "2022/03/21",
+    "comments": "Published at ICLR 2023. V2: added PaLM results; V3: added UL2 results; V4: camera ready version at ICLR 2023"
+  },
+  "2303.17651": {
+    "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+    "authors": [
+      "Madaan, Aman",
+      "Tandon, Niket",
+      "Gupta, Prakhar",
+      "Hallinan, Skyler",
+      "Gao, Luyu",
+      "Wiegreffe, Sarah",
+      "Alon, Uri",
+      "Dziri, Nouha",
+      "Prabhumoye, Shrimai",
+      "Yang, Yiming",
+      "Gupta, Shashank",
+      "Majumder, Bodhisattwa Prasad",
+      "Hermann, Katherine",
+      "Welleck, Sean",
+      "Yazdanbakhsh, Amir",
+      "Clark, Peter"
+    ],
+    "date": "2023/03/30",
+    "comments": "Code, data, and demo at this https URL"
+  },
+  "2305.03111": {
+    "title": "Can LLM Already Serve as A Database Interface? A BIg Bench for Large-Scale Database Grounded Text-to-SQLs",
+    "authors": [
+      "Li, Jinyang",
+      "Hui, Binyuan",
+      "Qu, Ge",
+      "Yang, Jiaxi",
+      "Li, Binhua",
+      "Li, Bowen",
+      "Wang, Bailin",
+      "Qin, Bowen",
+      "Cao, Rongyu",
+      "Geng, Ruiying",
+      "Huo, Nan",
+      "Zhou, Xuanhe",
+      "Ma, Chenhao",
+      "Li, Guoliang",
+      "Chang, Kevin C. C.",
+      "Huang, Fei",
+      "Cheng, Reynold",
+      "Li, Yongbin"
+    ],
+    "date": "2023/05/04",
+    "comments": "NeurIPS 2023"
+  },
+  "2305.20050": {
+    "title": "Let's Verify Step by Step",
+    "authors": [
+      "Lightman, Hunter",
+      "Kosaraju, Vineet",
+      "Burda, Yura",
+      "Edwards, Harri",
+      "Baker, Bowen",
+      "Lee, Teddy",
+      "Leike, Jan",
+      "Schulman, John",
+      "Sutskever, Ilya",
+      "Cobbe, Karl"
+    ],
+    "date": "2023/05/31",
+    "comments": null
+  },
+  "2310.01798": {
+    "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+    "authors": [
+      "Huang, Jie",
+      "Chen, Xinyun",
+      "Mishra, Swaroop",
+      "Zheng, Huaixiu Steven",
+      "Yu, Adams Wei",
+      "Song, Xinying",
+      "Zhou, Denny"
+    ],
+    "date": "2023/10/03",
+    "comments": "ICLR 2024"
+  },
+  "2406.12045": {
+    "title": "$\\tau$-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+    "authors": [
+      "Yao, Shunyu",
+      "Shinn, Noah",
+      "Razavi, Pedram",
+      "Narasimhan, Karthik"
+    ],
+    "date": "2024/06/17",
+    "comments": null
+  },
+  "2407.21787": {
+    "title": "Large Language Monkeys: Scaling Inference Compute with Repeated Sampling",
+    "authors": [
+      "Brown, Bradley",
+      "Juravsky, Jordan",
+      "Ehrlich, Ryan",
+      "Clark, Ronald",
+      "Le, Quoc V.",
+      "Ré, Christopher",
+      "Mirhoseini, Azalia"
+    ],
+    "date": "2024/07/31",
+    "comments": null
+  },
+  "2408.03314": {
+    "title": "Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters",
+    "authors": [
+      "Snell, Charlie",
+      "Lee, Jaehoon",
+      "Xu, Kelvin",
+      "Kumar, Aviral"
+    ],
+    "date": "2024/08/06",
+    "comments": null
+  },
+  "2408.06195": {
+    "title": "Mutual Reasoning Makes Smaller LLMs Stronger Problem-Solvers",
+    "authors": [
+      "Qi, Zhenting",
+      "Ma, Mingyuan",
+      "Xu, Jiahang",
+      "Zhang, Li Lyna",
+      "Yang, Fan",
+      "Yang, Mao"
+    ],
+    "date": "2024/08/12",
+    "comments": null
+  },
+  "2410.01943": {
+    "title": "CHASE-SQL: Multi-Path Reasoning and Preference Optimized Candidate Selection in Text-to-SQL",
+    "authors": [
+      "Pourreza, Mohammadreza",
+      "Li, Hailong",
+      "Sun, Ruoxi",
+      "Chung, Yeounoh",
+      "Talaei, Shayan",
+      "Kakkar, Gaurav Tarlok",
+      "Gan, Yu",
+      "Saberi, Amin",
+      "Ozcan, Fatma",
+      "Arik, Sercan O."
+    ],
+    "date": "2024/10/02",
+    "comments": null
+  },
+  "2411.00073": {
+    "title": "RSL-SQL: Robust Schema Linking in Text-to-SQL Generation",
+    "authors": [
+      "Cao, Zhenbiao",
+      "Zheng, Yuanlei",
+      "Fan, Zhihao",
+      "Zhang, Xiaojin",
+      "Chen, Wei",
+      "Bai, Xiang"
+    ],
+    "date": "2024/10/31",
+    "comments": null
+  },
+  "2411.07763": {
+    "title": "Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows",
+    "authors": [
+      "Lei, Fangyu",
+      "Chen, Jixuan",
+      "Ye, Yuxiao",
+      "Cao, Ruisheng",
+      "Shin, Dongchan",
+      "Su, Hongjin",
+      "Suo, Zhaoqing",
+      "Gao, Hongcheng",
+      "Hu, Wenjing",
+      "Yin, Pengcheng",
+      "Zhong, Victor",
+      "Xiong, Caiming",
+      "Sun, Ruoxi",
+      "Liu, Qian",
+      "Wang, Sida",
+      "Yu, Tao"
+    ],
+    "date": "2024/11/12",
+    "comments": "ICLR 2025 Oral"
+  },
+  "2502.13550": {
+    "title": "STaR-SQL: Self-Taught Reasoner for Text-to-SQL",
+    "authors": [
+      "He, Mingqian",
+      "Shen, Yongliang",
+      "Zhang, Wenqi",
+      "Peng, Qiuying",
+      "Wang, Jun",
+      "Lu, Weiming"
+    ],
+    "date": "2025/02/19",
+    "comments": null
+  },
+  "2502.17248": {
+    "title": "Alpha-SQL: Zero-Shot Text-to-SQL using Monte Carlo Tree Search",
+    "authors": [
+      "Li, Boyan",
+      "Zhang, Jiayi",
+      "Fan, Ju",
+      "Xu, Yanwei",
+      "Chen, Chong",
+      "Tang, Nan",
+      "Luo, Yuyu"
+    ],
+    "date": "2025/02/24",
+    "comments": "ICML 2025"
+  },
+  "2503.14476": {
+    "title": "DAPO: An Open-Source LLM Reinforcement Learning System at Scale",
+    "authors": [
+      "Yu, Qiying",
+      "Zhang, Zheng",
+      "Zhu, Ruofei",
+      "Yuan, Yufeng",
+      "Zuo, Xiaochen",
+      "Yue, Yu",
+      "Dai, Weinan",
+      "Fan, Tiantian",
+      "Liu, Gaohong",
+      "Liu, Lingjun",
+      "Liu, Xin",
+      "Lin, Haibin",
+      "Lin, Zhiqi",
+      "Ma, Bole",
+      "Sheng, Guangming",
+      "Tong, Yuxuan",
+      "Zhang, Chi",
+      "Zhang, Mofan",
+      "Zhang, Wang",
+      "Zhu, Hang",
+      "Zhu, Jinhua",
+      "Chen, Jiaze",
+      "Chen, Jiangjie",
+      "Wang, Chengyi",
+      "Yu, Hongli",
+      "Song, Yuxuan",
+      "Wei, Xiangpeng",
+      "Zhou, Hao",
+      "Liu, Jingjing",
+      "Ma, Wei-Ying",
+      "Zhang, Ya-Qin",
+      "Yan, Lin",
+      "Qiao, Mu",
+      "Wu, Yonghui",
+      "Wang, Mingxuan"
+    ],
+    "date": "2025/03/18",
+    "comments": "Project Page: this https URL"
+  },
+  "2505.13271": {
+    "title": "CSC-SQL: Corrective Self-Consistency in Text-to-SQL via Reinforcement Learning",
+    "authors": [
+      "Sheng, Lei",
+      "Xu, Shuai-Shuai"
+    ],
+    "date": "2025/05/19",
+    "comments": "25 pages, 5 figures"
+  },
+  "2505.20315": {
+    "title": "Arctic-Text2SQL-R1: Simple Rewards, Strong Reasoning in Text-to-SQL",
+    "authors": [
+      "Yao, Zhewei",
+      "Sun, Guoheng",
+      "Borchmann, Lukasz",
+      "Nuti, Gaurav",
+      "Shen, Zheyu",
+      "Deng, Minghang",
+      "Zhai, Bohan",
+      "Zhang, Hao",
+      "Li, Ang",
+      "He, Yuxiong"
+    ],
+    "date": "2025/05/22",
+    "comments": "22 pages, 2 figures"
+  },
+  "2510.05318": {
+    "title": "BIRD-INTERACT: Re-imagining Text-to-SQL Evaluation for Large Language Models via Lens of Dynamic Interactions",
+    "authors": [
+      "Huo, Nan",
+      "Xu, Xiaohan",
+      "Li, Jinyang",
+      "Jacobsson, Per",
+      "Lin, Shipei",
+      "Qin, Bowen",
+      "Hui, Binyuan",
+      "Li, Xiaolong",
+      "Qu, Ge",
+      "Si, Shuzheng",
+      "Han, Linheng",
+      "Alexander, Edward",
+      "Zhu, Xintong",
+      "Qin, Rui",
+      "Yu, Ruihan",
+      "Jin, Yiyao",
+      "Zhou, Feige",
+      "Zhong, Weihao",
+      "Chen, Yun",
+      "Liu, Hongyu",
+      "Ma, Chenhao",
+      "Ozcan, Fatma",
+      "Papakonstantinou, Yannis",
+      "Cheng, Reynold"
+    ],
+    "date": "2025/10/06",
+    "comments": "ICLR 2026 Oral. Dataset and code available at this https URL"
+  },
+  "2510.26495": {
+    "title": "Rethinking Text-to-SQL: Dynamic Multi-turn SQL Interaction for Real-world Database Exploration",
+    "authors": [
+      "Sun, Linzhuang",
+      "Guo, Tianyu",
+      "Liang, Hao",
+      "Li, Yuying",
+      "Cai, Qifeng",
+      "Wei, Jingxuan",
+      "Yu, Bihui",
+      "Zhang, Wentao",
+      "Cui, Bin"
+    ],
+    "date": "2025/10/30",
+    "comments": null
+  },
+  "2604.25325": {
+    "title": "R$^3$-SQL: Ranking Reward and Resampling for Text-to-SQL",
+    "authors": [
+      "Han, Hojae",
+      "Jeong, Yeonseok",
+      "Hwang, Seung-won",
+      "Yao, Zhewei",
+      "He, Yuxiong"
+    ],
+    "date": "2026/04/28",
+    "comments": "Accepted by Findings of ACL 2026"
+  },
+  "2606.23537": {
+    "title": "SQLConductor: Search-to-Policy Learning for Step-wise Text-to-SQL Orchestration",
+    "authors": [
+      "Zhu, Yizhang",
+      "Peng, Zhangyang",
+      "Li, Boyan",
+      "Luo, Yuyu"
+    ],
+    "date": "2026/06/22",
+    "comments": null
+  },
+  "2608.07213": {
+    "title": "From Test-Time Scaling to Reusable Memory: Measuring Crystallization in Text-to-SQL",
+    "authors": [
+      "Wang, Jiaqian",
+      "Qi, Yutao",
+      "Hou, Wenjin",
+      "Che, Yuanxi",
+      "Wen, Muning"
+    ],
+    "date": "2026/08/07",
+    "comments": "18 pages, 6 figures. Open-source code, evaluation artifacts, and reproduction instructions: this https URL"
+  },
+  "2510.12831": {
+    "title": "MTSQL-R1: Towards Long-Horizon Multi-Turn Text-to-SQL via Agentic Training",
+    "authors": [
+      "Guo, Taicheng",
+      "Wang, Hai",
+      "Liu, ChaoChun",
+      "Golalikhani, Mohsen",
+      "Chen, Xin",
+      "Zhang, Xiangliang",
+      "Reddy, Chandan K."
+    ],
+    "date": "2025/10/12",
+    "comments": "arXiv v3 2026-04-18"
+  },
+  "2506.01273": {
+    "title": "RAISE: Reasoning Agent for Interactive SQL Exploration",
+    "authors": [
+      "Granado, Fernando",
+      "Lotufo, Roberto",
+      "Pereira, Jayr"
+    ],
+    "date": "2025/06/02",
+    "comments": "arXiv v1"
+  },
+  "2608.00485": {
+    "title": "SERL-SQL: Selective Hindsight Distillation for Text-to-SQL Reinforcement Agentic Learning",
+    "authors": [
+      "Liu, Tao",
+      "Feng, Tao",
+      "Li, Xiangheng",
+      "Song, Jinwang",
+      "Li, Yifan",
+      "Cheng, Xiaoqing",
+      "Zhang, Dixuan",
+      "Li, Siquan",
+      "Lan, Lin",
+      "Zan, Hongying",
+      "Zhang, Kunli",
+      "Wu, Chao"
+    ],
+    "date": "2026/08/01",
+    "comments": "arXiv v4 2026-10-08"
+  },
+  "2306.14898": {
+    "title": "InterCode: Standardizing and Benchmarking Interactive Coding with Execution Feedback",
+    "authors": [
+      "Yang, John",
+      "Prabhakar, Akshara",
+      "Narasimhan, Karthik",
+      "Yao, Shunyu"
+    ],
+    "date": "2023/06/26",
+    "comments": "arXiv v3 2023-10-30"
+  }
+}

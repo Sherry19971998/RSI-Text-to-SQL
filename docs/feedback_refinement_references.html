@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>反馈迭代修正文献</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  /* layout: deck-style literature pages — one 6-column comparison table per method group, verdict boxes under each */
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #1d2533;
+  --muted: #5b6474;
+  --line: #d8dce3;
+  --head: #23293a;
+  --head-ink: #f4f5f7;
+  --accent: #a94f26;
+  --accent-soft: #f7e7de;
+  --note: #eef1f5;
+  --display: "Noto Serif SC", "Songti SC", serif;
+  --body: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #13171e; --surface: #1b2129; --ink: #e5e8ed; --muted: #9aa3b2; --line: #2d3541;
+    --head: #2a3242; --head-ink: #eef0f3; --accent: #e5966f; --accent-soft: #3a2a22; --note: #222a35; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #13171e; --surface: #1b2129; --ink: #e5e8ed; --muted: #9aa3b2; --line: #2d3541;
+  --head: #2a3242; --head-ink: #eef0f3; --accent: #e5966f; --accent-soft: #3a2a22; --note: #222a35; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14.5px; line-height: 1.65; }
+main { max-width: 1320px; margin: 0 auto; padding: 36px 20px 64px; display: grid; gap: 34px; }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h1 { font-size: 29px; line-height: 1.3; }
+h2 { font-size: 20px; }
+p { margin: 0; }
+.meta { color: var(--muted); font-size: 13.5px; margin-top: 8px; max-width: 92ch; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.toc a { font-size: 13.5px; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+nav.toc a:hover { border-color: var(--accent); color: var(--accent); }
+.verdict { background: var(--accent-soft); border-radius: 10px; padding: 18px 22px; display: grid; gap: 8px; }
+.verdict p { max-width: 100ch; }
+.verdict b { color: var(--accent); }
+section.group { display: grid; gap: 12px; scroll-margin-top: 16px; }
+.ghead { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.badge { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--note); color: var(--muted); }
+.badge.sql { background: var(--accent-soft); color: var(--accent); }
+.gsub { color: var(--muted); font-size: 13.5px; max-width: 100ch; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 1180px; }
+thead th { background: var(--head); color: var(--head-ink); font-weight: 500; font-size: 13px; text-align: left; padding: 10px 12px; position: sticky; top: 0; }
+td { vertical-align: top; padding: 12px; border-top: 1px solid var(--line); font-size: 13.5px; }
+col.c1 { width: 12%; } col.c0 { width: 8%; } col.c2 { width: 14%; } col.c3 { width: 20%; } col.c4 { width: 17%; } col.c5 { width: 14.5%; } col.c6 { width: 14.5%; }
+.tr { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 9px; border-radius: 999px; background: var(--note); color: var(--muted); }
+.tr.yes { background: var(--accent-soft); color: var(--accent); }
+.tr.part { background: var(--note); color: var(--ink); }
+.trn { display: block; margin-top: 5px; font-size: 12px; color: var(--muted); }
+.pname { font-weight: 700; font-size: 14.5px; display: block; }
+.yr { display: inline-block; margin: 4px 0 2px; font-family: var(--mono); font-size: 12.5px; font-weight: 500; padding: 1px 8px; border-radius: 6px; background: var(--head); color: var(--head-ink); }
+.pmeta { color: var(--muted); font-size: 12.5px; display: block; }
+.pmeta a { font-family: var(--mono); color: var(--accent); text-decoration: none; }
+.pmeta a:hover { text-decoration: underline; }
+.domain { display: inline-block; margin-top: 6px; font-size: 12px; padding: 1px 8px; border-radius: 6px; background: var(--note); color: var(--muted); }
+.domain.sql { background: var(--accent-soft); color: var(--accent); }
+.steps { display: grid; gap: 3px; }
+.f { display: block; overflow-x: auto; padding: 6px 0 4px; font-size: 15px; }
+.ftag { display: block; font-size: 12px; color: var(--muted); }
+.cmp { display: block; color: var(--muted); font-size: 12.5px; }
+.an { color: var(--muted); font-size: 12px; }
+.boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; }
+.box h3 { margin: 0; font-size: 14px; }
+.box.next h3 { color: var(--accent); }
+.box ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.src { color: var(--muted); font-size: 12.5px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 6px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+math { font-size: 1.05em; }
+@media (max-width: 480px) { h1 { font-size: 23px; } main { padding-top: 22px; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>“生成→反馈→迭代修改”：Self-Refine 之后的新工作与 Text-to-SQL 对应研究</h1>
+  <p class="meta">核对日期 2026-10-31。20 篇论文逐篇读了全文的方法、实验与局限部分；数字均为原文报告，标出比较对象。每篇论文名下的深色标签是 arXiv 首次提交的年月，即论文写成的时间；会议年份见其后的发表信息。标注说明：<b>作者原式</b>＝论文原公式；<b>流程概括 / 规则概括</b>＝论文无单一公式，按原文步骤整理；<b>本次整理</b>＝我们据文字定义写成的公式；〔分析〕＝我们的判断，非论文结论。检索按 arXiv 关键词进行（约 130 篇命中），不是系统性综述。</p>
+</header>
+
+<div class="verdict">
+  <p><b>结论：</b>Text-to-SQL 里“生成→反馈→修改”的工作很多，而且已经分化成四条路线：提示式自我修正（2023 起）、训练专门的批改/修正模型（2023 起）、用执行反馈做多轮强化学习（2025 起集中出现）、人类自然语言反馈（2020 起）。因此“这类方法还没有做 Text-to-SQL”不成立。</p>
+  <p><b>与第 5 页两篇的对应：</b>Huang 等的负面结论在 SQL 中被复现——GPT-4o 在 BIRD 上做内在自我修正，55.87→55.28（SHARE 论文表 2）；Self-Refine 式的提示修正在 SQL 中只有在加入执行结果或外部批改信号时才稳定有效。</p>
+</div>
+
+<nav class="toc" aria-label="分组目录">
+  <a href="#g0">0 通用：Self-Refine 之后</a>
+  <a href="#g1">1 SQL 提示式自我修正</a>
+  <a href="#g2">2 SQL 训练批改/修正模型</a>
+  <a href="#g3">3 SQL 执行反馈多轮 RL</a>
+  <a href="#g4">4 SQL 人类自然语言反馈</a>
+  <a href="#g5">5 SQL 修正是否有用</a>
+  <a href="#sum">总表：对第 5 页的含义</a>
+</nav>
+
+<!-- ======================= G0 ======================= -->
+<section class="group" id="g0">
+  <div class="ghead"><h2>0｜通用背景：Self-Refine 与 Huang 等之后的三条修补路线</h2><span class="badge">非 SQL 实验</span></div>
+  <p class="gsub">Huang 等指出“没有外部信号时自我修正无效”。后续工作分别从三个方向回应：加入外部工具反馈、定位错误、用强化学习直接训练修正能力。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">CRITIC</span><span class="yr">2023.05 首次提交</span><span class="pmeta">Gou et al., ICLR 2024 · <a href="https://arxiv.org/abs/2305.11738">2305.11738</a></span><span class="domain">问答 / 数学程序 / 去毒，非 SQL</span></td>
+        <td><span class="tr no">否</span><span class="trn">只用提示和外部工具，不更新参数</span></td>
+        <td>模型自我评价不可靠；人类改稿时会借助搜索、代码解释器等工具核查。</td>
+        <td class="steps"><span>① 生成初稿；</span><span>② 调用工具（搜索、解释器、毒性 API）核查指定方面，生成批评 c<sub>i</sub>；</span><span>③ 依据批评修改；</span><span>④ 重复“核查→修改”直到满足停止条件。</span></td>
+        <td><span class="f" data-tex="c_i \sim P_{\mathcal M}(\cdot \mid \wp \oplus x \oplus \hat y_i,\ \mathcal T),\quad \hat y_{i+1} \sim P_{\mathcal M}(\cdot \mid \wp \oplus x \oplus \hat y_i \oplus c_i)"></span><span class="ftag">流程概括（按作者记号）</span>℘：提示示例；𝒯：工具；c<sub>i</sub>：基于工具结果的批评。</td>
+        <td><span class="cmp">相对 CoT（ChatGPT，F1）：</span>AmbigNQ 64.3→74.9；HotpotQA 42.8→52.9。</td>
+        <td><span class="cmp">相对完整 CRITIC：</span>去掉工具只剩 67.3 / 46.1，大部分收益来自外部工具；依赖可用的工具与调用成本。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">LLMs cannot find reasoning errors, but can correct them</span><span class="yr">2023.11 首次提交</span><span class="pmeta">Tyen et al., ACL 2024 Findings · <a href="https://arxiv.org/abs/2311.08516">2311.08516</a></span><span class="domain">BIG-Bench 推理任务，非 SQL</span></td>
+        <td><span class="tr part">部分</span><span class="trn">主实验只用提示；另训练了一个小型找错分类器作初步验证</span></td>
+        <td>自我修正失败，是因为模型“改不对”，还是“找不到错”？</td>
+        <td class="steps"><span>① 构建 BIG-Bench Mistake：人工标注思维链中第一个逻辑错误的位置；</span><span>② 测 5 个模型的找错能力；</span><span>③ 给定真实错误位置，回溯重写该步之后的内容。</span></td>
+        <td><span class="ftag">规则概括（无核心公式）</span>回溯：丢弃标出的错误步及之后内容，重新采样该步再继续生成；用随机位置作对照。</td>
+        <td><span class="cmp">相对随机位置回溯：</span>给定真实错误位置时收益明显更大；例：word sorting 中 23.53% 原本错的轨迹被改对。</td>
+        <td>找错是瓶颈：GPT-4 找错准确率仅 52.87；同时 11.11% 原本对的轨迹被改错；任务为人工构造，作者承认不够真实。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">SCoRe</span><span class="yr">2024.09 首次提交</span><span class="pmeta">Kumar et al., 2024, arXiv · <a href="https://arxiv.org/abs/2409.12917">2409.12917</a></span><span class="domain">数学 MATH / 代码 HumanEval，非 SQL</span></td>
+        <td><span class="tr yes">是</span><span class="trn">两阶段多轮在线 RL，训练修正能力</span></td>
+        <td>用离线修正轨迹做 SFT 学不会真正的自我修正：模型要么不改，要么分布漂移。</td>
+        <td class="steps"><span>① 第一阶段：约束第一次回答接近原模型，同时优化第二次回答；</span><span>② 第二阶段：多轮在线 RL，用奖励塑形鼓励“第二次比第一次好”；</span><span>③ 全部用模型自己生成的数据。</span></td>
+        <td><span class="f" data-tex="\hat b(y_2 \mid y_1, y^*) = \alpha\,\big(\hat r(y_2, y^*) - \hat r(y_1, y^*)\big)"></span><span class="ftag">作者原式（第二阶段奖励塑形）</span>只奖励“从错改对”的进步，惩罚“从对改错”。</td>
+        <td><span class="cmp">相对原 Gemini 模型：</span>自我修正增益 Δ(t1,t2) 在 MATH 上 +15.6，在 HumanEval 上 +9.1（绝对值）。</td>
+        <td>只训练两轮修正；需要可验证的正确性奖励；论文同时报告 SFT 方法会“学会不改”。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>三篇都承认 Huang 的结论：没有外部信号时自我修正难以奏效。</li><li>补救方式不同：CRITIC 引入工具反馈；Tyen 说明瓶颈在“找错”；SCoRe 用 RL 直接训练修正能力。</li></ul></div>
+    <div class="box next"><h3>需要继续验证</h3><ul><li>SQL 的执行器相当于 CRITIC 的“工具”，但执行成功不等于结果正确，反馈强度弱于单元测试。</li><li>SCoRe 式的“只奖励进步”能否用于 SQL 多轮修正？见第 3 组。</li></ul></div>
+  </div>
+  <p class="src">Gou et al. (2024)；Tyen et al. (2024)；Kumar et al. (2024)。数字为各论文原文报告。</p>
+</section>
+
+<!-- ======================= G1 ======================= -->
+<section class="group" id="g1">
+  <div class="ghead"><h2>1｜Text-to-SQL：提示式自我修正（不训练）</h2><span class="badge sql">Text-to-SQL</span></div>
+  <p class="gsub">直接对应 Self-Refine：同一模型或多个智能体根据执行结果、报错或总结出的指南修改 SQL。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">DIN-SQL</span><span class="yr">2023.04 首次提交</span><span class="pmeta">Pourreza &amp; Rafiei, NeurIPS 2023 · <a href="https://arxiv.org/abs/2304.11015">2304.11015</a></span><span class="domain sql">Spider / BIRD</span></td>
+        <td><span class="tr no">否</span><span class="trn">少样本与零样本提示</span></td>
+        <td>少样本提示在复杂 SQL 上明显落后于微调模型；生成的 SQL 常缺 DESC、DISTINCT、聚合函数等。</td>
+        <td class="steps"><span>① 分解：schema linking→难度分类→按难度生成；</span><span>② 自我修正模块：只给出生成的 SQL，零样本要求模型修 bug；</span><span>③ 两种修正提示：generic（明说“BUGGY SQL”）与 gentle（不假设有错，只提示检查哪些子句）。</span></td>
+        <td><span class="ftag">规则概括（无核心公式）</span>修正提示的选择：CodeX 用 generic 更好，GPT-4 用 gentle 更好。</td>
+        <td><span class="cmp">相对当时 SOTA：</span>Spider 测试集 EX 85.3（GPT-4）；BIRD 测试集 55.9。</td>
+        <td>修正针对“小错误”（关键词缺漏），不处理语义错误；摘要中未单独报告修正模块的贡献〔分析：需查附录消融〕。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Self-Debug</span><span class="yr">2023.04 首次提交</span><span class="pmeta">X. Chen et al., 2023, arXiv · <a href="https://arxiv.org/abs/2304.05128">2304.05128</a></span><span class="domain sql">Spider（另有代码翻译、MBPP）</span></td>
+        <td><span class="tr no">否</span><span class="trn">少样本提示</span></td>
+        <td>复杂程序很难一次写对；Spider 没有单元测试，模型难以判断 SQL 是否正确。</td>
+        <td class="steps"><span>① 生成 SQL 并执行；</span><span>② “橡皮鸭调试”：总结问题、推断应返回几列，逐行解释 SQL；</span><span>③ 依据解释和执行结果判断对错并修改。</span></td>
+        <td><span class="ftag">流程概括</span>反馈三档：simple（只说对/错）、unit test、explanation（自我解释）。Spider 上只给 simple 反馈不足以判断正确性。</td>
+        <td><span class="cmp">相对不调试的基线：</span>Spider 提升 2–3 个点，最难一档提升 9 个点；能匹敌多采样 10 倍候选的基线。</td>
+        <td>GPT-3.5 / GPT-4 上少样本调试提示收益不明显；没有执行正确性信号时，修正依赖模型自我解释的质量。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">MAGIC</span><span class="yr">2024.06 首次提交</span><span class="pmeta">Askari et al., AAAI 2025 · <a href="https://arxiv.org/abs/2406.12692">2406.12692</a></span><span class="domain sql">BIRD / Spider</span></td>
+        <td><span class="tr no">否</span><span class="trn">智能体在训练集失败案例上生成指南，不更新模型参数</span></td>
+        <td>自我修正依赖专家手写的“修正指南”，费时，且覆盖不了模型的全部错误模式。</td>
+        <td class="steps"><span>① 在训练集上收集某方法的失败案例；</span><span>② 管理者、反馈、修正三个智能体循环：反馈智能体解释错误，修正智能体据此改写并执行验证；</span><span>③ 每累计若干条反馈，汇总成可复用的修正指南；</span><span>④ 测试时把指南放进修正提示。</span></td>
+        <td><span class="ftag">规则概括（无核心公式）</span>指南按错误类型组织（如 LIMIT 遗漏），测试时让模型先自问再修改。</td>
+        <td><span class="cmp">相对专家手写指南：</span>自动指南效果更好，且修正过程可解释（原文主表）。</td>
+        <td>指南生成需要训练集上的标准 SQL；指南随基础方法而定，换生成方法需重新生成〔分析〕。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">ReFoRCE</span><span class="yr">2025.02 首次提交</span><span class="pmeta">Deng et al., 2025, arXiv · <a href="https://arxiv.org/abs/2502.00675">2502.00675</a></span><span class="domain sql">Spider 2.0（企业级、多方言）</span></td>
+        <td><span class="tr no">否</span><span class="trn">提示式智能体工作流</span></td>
+        <td>企业库 schema 超长（千列以上）、方言多样，单次生成常有语法与语义错误。</td>
+        <td class="steps"><span>① 压缩数据库信息（按模式分组表、LLM 引导 schema linking）；</span><span>② 依据执行反馈自我修正，最多 5 轮；</span><span>③ 多数投票选高置信答案，低置信题延后；</span><span>④ 对延后题做执行反馈引导的列探索。</span></td>
+        <td><span class="ftag">流程概括</span>修正平均 1.69 次 LLM/数据库调用、约 15.4K token（不含列探索）。</td>
+        <td><span class="cmp">相对 Spider 2.0 已有方法：</span>Snow 35.83、Lite 36.56，当时榜首。</td>
+        <td><span class="cmp">消融（o3）：</span>去掉 schema 压缩 −3.65、去掉列探索 −2.56、去掉投票 −2.01；没有单独“去掉自我修正”的消融。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>SQL 的提示式修正普遍借助执行器：报错、执行结果、或在训练集失败案例上总结出的指南。</li><li>DIN-SQL 与 ReFoRCE 都没有把“修正”单独拆出来量化，收益常与其他模块混在一起。</li></ul></div>
+    <div class="box next"><h3>需要继续验证</h3><ul><li>去掉修正模块单独看，提示式修正对强模型还剩多少收益？第 5 组的评估工作给出了部分答案。</li><li>修正会不会把原本正确的 SQL 改错？这几篇大多未报告改错率。</li></ul></div>
+  </div>
+  <p class="src">Pourreza &amp; Rafiei (2023)；Chen et al. (2023)；Askari et al. (2025)；Deng et al. (2025)。</p>
+</section>
+
+<!-- ======================= G2 ======================= -->
+<section class="group" id="g2">
+  <div class="ghead"><h2>2｜Text-to-SQL：训练专门的批改或修正模型</h2><span class="badge sql">Text-to-SQL</span></div>
+  <p class="gsub">对应 Tyen 等“找错是瓶颈”：把检测与批改单独训练成模型，再把信号交给生成模型修改。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">SQLCritic</span><span class="yr">2025.03 首次提交</span><span class="pmeta">J. Chen et al., 2025, arXiv · <a href="https://arxiv.org/abs/2503.07996">2503.07996</a></span><span class="domain sql">BIRD / Spider</span></td>
+        <td><span class="tr yes">是</span><span class="trn">SFT＋Critic DPO 训练批评模型；生成模型不训练</span></td>
+        <td>已有修正常引入新错误，且查不出语义错误；整体式批评定位不准。</td>
+        <td class="steps"><span>① 定义子句级批评任务，构建 SQLCriticBench；</span><span>② 自动标注子句级批评数据；</span><span>③ SFT 后用 Critic DPO 训练批评模型，β 随正负批评的子句级差异自适应；</span><span>④ 生成模型依据批评修改。</span></td>
+        <td><span class="f" data-tex="\mathcal L=-\log\sigma\!\Big(\beta_c\big[\log\tfrac{\pi_\theta(y_w)}{\pi_{\mathrm{ref}}(y_w)}-\log\tfrac{\pi_\theta(y_l)}{\pi_{\mathrm{ref}}(y_l)}\big]\Big)"></span><span class="ftag">本次整理：标准 DPO 形式；β<sub>c</sub> 随子句差异调整的具体函数见原文</span>y<sub>w</sub>/y<sub>l</sub>：较好/较差的批评。</td>
+        <td><span class="cmp">相对提示式批评（GPT-4o，BIRD）：</span>整体式批评 49.87→45.12（下降），子句级提示批评 47.97，SQLCritic 54.58。</td>
+        <td>嵌套子查询、复杂条件易漏判；逐子句批评会漏掉跨子句依赖（如 GROUP BY 与 HAVING 不匹配）。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">SHARE</span><span class="yr">2025.05 首次提交</span><span class="pmeta">Qu et al., ACL 2025 Main · <a href="https://arxiv.org/abs/2506.00391">2506.00391</a></span><span class="domain sql">BIRD / Spider 及变体</span></td>
+        <td><span class="tr yes">是</span><span class="trn">训练 3 个 &lt;8B 小模型；生成模型（如 GPT-4o）不训练</span></td>
+        <td>递归调用大模型做修正成本成倍增加；声明式 SQL 看不出推理过程，难以定位错误。</td>
+        <td class="steps"><span>① BAM 把 SQL 转成逐步的动作轨迹；</span><span>② SAM 修 schema 类错误、LOM 修逻辑类错误；</span><span>③ 把修正后的轨迹作为反馈交给生成模型修改一次；</span><span>④ 分层自我演化策略合成训练数据（三个模型均 &lt;8B）。</span></td>
+        <td><span class="ftag">流程概括</span>SQL → 动作轨迹 → schema 修正 → 逻辑修正 → 反馈给生成模型。</td>
+        <td><span class="cmp">相对 GPT-4o 内在自我修正（BIRD）：</span>后者 55.87→55.28（下降）；加 SHARE-8B 达 64.14。Spider-DK 64.10→75.30。</td>
+        <td>只测单轮修正，多轮未研究；对数学类错误收效有限（Mathematical Delusion 仅降 1.63%）。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">RetrySQL</span><span class="yr">2025.07 首次提交</span><span class="pmeta">Rączkowska et al., AAAI 2026 · <a href="https://arxiv.org/abs/2507.02529">2507.02529</a></span><span class="domain sql">BIRD / Spider</span></td>
+        <td><span class="tr yes">是</span><span class="trn">用重试数据继续预训练生成模型</span></td>
+        <td>自我修正策略很少被训练进 SQL 专用的开源生成模型。</td>
+        <td class="steps"><span>① 用 GPT-4o 为参考 SQL 生成推理步骤；</span><span>② 随机替换某些步骤为错误步骤，其后插入 [BACK] 和正确步骤，构成重试数据；</span><span>③ 用重试数据继续预训练开源代码模型。</span></td>
+        <td><span class="ftag">规则概括</span>s<sub>1</sub>…s′<sub>k</sub> [BACK] s<sub>k</sub>…s<sub>n</sub>：错误步之后紧跟回退标记和正确步。</td>
+        <td><span class="cmp">相对不含重试数据的预训练：</span>整体执行指标最多 +4 点，困难题 +9 点。</td>
+        <td>错误是人为随机构造，不是模型真实犯的错；训练数据只来自 BIRD/Spider，规模有限（作者自述）。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">ErrorLLM</span><span class="yr">2026.03 首次提交</span><span class="pmeta">Hong et al., SIGKDD 2026 · <a href="https://arxiv.org/abs/2603.03742">2603.03742</a></span><span class="domain sql">BIRD / Spider / NL2SQL-Bugs</span></td>
+        <td><span class="tr yes">是</span><span class="trn">训练错误检测模型；修改步骤用提示</span></td>
+        <td>现代模型很少写出会报错的 SQL，self-debug 失去触发信号；自我修正误报多，常把正确 SQL 改坏。</td>
+        <td class="steps"><span>① 把问题与 schema 表示为结构特征；</span><span>② 静态检测执行失败与表面不匹配；</span><span>③ 扩展专门的错误 token，训练模型预测隐含语义错误类型；</span><span>④ 按优先级用检测到的错误引导大模型修改。</span></td>
+        <td><span class="ftag">流程概括</span>“先检测、后修正”：只在检测到错误时修改，以降低改坏率。</td>
+        <td><span class="cmp">相对 GPT-4o 初始生成：</span>BIRD 55.87→66.23（+10.36 点，原文写作相对 +18.54%）；Spider 75.44→86.94。</td>
+        <td>原文指出：在更强的底座（OpenSearch-SQL）上，多数已有修正方法反而降分；检测质量决定修正效果。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>SQLCritic、SHARE、ErrorLLM 都直接复现了 Huang 的现象：提示式或内在自我修正在 BIRD 上会降分或几乎不变。</li><li>有效的做法都是把“找错”交给专门训练的模型，与 Tyen 等的结论一致。</li></ul></div>
+    <div class="box next"><h3>需要继续验证</h3><ul><li>这些批改模型的训练数据都依赖标准 SQL 构造；能否只用执行信号或模型自生成数据训练？</li><li>RetrySQL 用人为错误，真实错误轨迹是否更有效？〔分析〕</li></ul></div>
+  </div>
+  <p class="src">Chen et al. (2025)；Qu et al. (2025)；Rączkowska et al. (2026)；Hong et al. (2026)。</p>
+</section>
+
+<!-- ======================= G3 ======================= -->
+<section class="group" id="g3">
+  <div class="ghead"><h2>3｜Text-to-SQL：用执行反馈训练多轮修正（DPO / RL）</h2><span class="badge sql">Text-to-SQL</span></div>
+  <p class="gsub">对应 SCoRe：不再只靠提示，而是把“执行→看结果→修改”训练进模型。2025 年下半年起集中出现，与我们课题最接近。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">ExCoT</span><span class="yr">2025.03 首次提交</span><span class="pmeta">Zhai et al., 2025, arXiv · <a href="https://arxiv.org/abs/2503.19988">2503.19988</a></span><span class="domain sql">BIRD / Spider</span></td>
+        <td><span class="tr yes">是</span><span class="trn">迭代离线＋在线 DPO</span></td>
+        <td>零样本 CoT 对 SQL 帮助小；不带 CoT 的 DPO 提升也有限。</td>
+        <td class="steps"><span>① 采样带 CoT 的 SQL，在本地 SQLite 执行，与标准结果比对标记对错；</span><span>② 选编辑距离最大的“对–错”对做离线 DPO；</span><span>③ 再用当前模型生成做在线 DPO，迭代多轮。</span></td>
+        <td><span class="f" data-tex="\mathcal L_{\mathrm{DPO}}=-\log\sigma\!\Big(\beta\log\tfrac{\pi_\theta(y_w\mid x)}{\pi_{\mathrm{ref}}(y_w\mid x)}-\beta\log\tfrac{\pi_\theta(y_l\mid x)}{\pi_{\mathrm{ref}}(y_l\mid x)}\Big)"></span><span class="ftag">本次整理：标准 DPO；正负例只由执行结果决定</span>不需要奖励模型或人工偏好。</td>
+        <td><span class="cmp">相对原模型（LLaMA-3 70B）：</span>BIRD dev 57.37→68.51；Spider test 78.81→86.59。</td>
+        <td>反馈用于构造训练对，不是推理时的多轮修改；复杂 schema 与领域惯例仍难（作者自述）。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">ReEx-SQL</span><span class="yr">2025.05 首次提交</span><span class="pmeta">Dai et al., 2025, arXiv · <a href="https://arxiv.org/abs/2505.12768">2505.12768</a></span><span class="domain sql">BIRD / Spider 及变体</span></td>
+        <td><span class="tr yes">是</span><span class="trn">GRPO，逐步执行的 rollout</span></td>
+        <td>已有方法只把执行反馈当事后的修正或挑选信号，推理过程中出错无法及时调整。</td>
+        <td class="steps"><span>① 推理中用标记插入中间 SQL 并执行，结果回填进上下文；</span><span>② GRPO 扩展为逐步执行的 rollout；</span><span>③ 树状解码展开备选推理路径。</span></td>
+        <td><span class="ftag">规则概括</span>复合奖励 R＝格式＋执行＋精确匹配＋实体匹配＋探索，五项权重见原文；探索项鼓励与数据库交互。</td>
+        <td><span class="cmp">相对标准推理（7B）：</span>BIRD 64.9（+2.6）、Spider 88.8（+2.7）；语法错误 4.5%→1.9%；树状解码耗时减 51.9%。</td>
+        <td>精确匹配与实体匹配奖励依赖标准 SQL；推理时要能反复访问数据库〔分析〕。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">MTIR-SQL</span><span class="yr">2025.10 首次提交</span><span class="pmeta">Xu et al., 2025, arXiv · <a href="https://arxiv.org/abs/2510.25510">2510.25510</a></span><span class="domain sql">BIRD / Spider</span></td>
+        <td><span class="tr yes">是</span><span class="trn">多轮工具 GRPO</span></td>
+        <td>RL 方法多依赖静态执行反馈，无法在推理中实时纠错；多轮工具 RL 训练不稳定。</td>
+        <td class="steps"><span>① 每步推理都可调用数据库获得执行反馈；</span><span>② GRPO 扩展到多轮工具交互；</span><span>③ 加轨迹过滤、去掉 KL 约束以稳定训练。</span></td>
+        <td><span class="f" data-tex="A_i=\frac{r_i-\operatorname{mean}(r_{1..G})}{\operatorname{std}(r_{1..G})}"></span><span class="ftag">标准 GRPO 组内优势（作者在此基础上修改）</span>组内全对或全错时优势为 0，不产生学习信号。</td>
+        <td><span class="cmp">相对基线（Qwen3-4B）：</span>BIRD dev 64.4（绝对 +16），Spider dev 84.6，与 7B 代码模型相当。</td>
+        <td>去掉 KL 后模型可能远离初始分布，作者用轨迹过滤缓解；只在 4B 级别验证。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">SQL-Trail</span><span class="yr">2026.01 首次提交</span><span class="pmeta">Hua et al., 2026, arXiv · <a href="https://arxiv.org/abs/2601.17699">2601.17699</a></span><span class="domain sql">Spider / BIRD（BIRD 作分布外）</span></td>
+        <td><span class="tr yes">是</span><span class="trn">多轮 RL（约 1.9K 条训练数据）</span></td>
+        <td>单次生成范式缺少人类专家常用的迭代推理、schema 探索和纠错。</td>
+        <td class="steps"><span>① 智能体与数据库多轮交互，用执行反馈迭代修改；</span><span>② 按题目难度自适应分配交互轮数；</span><span>③ 复合奖励面板同时奖励正确性与高效探索。</span></td>
+        <td><span class="ftag">规则概括</span>轮数预算随难度变化：简单题少轮、难题多轮，避免“过度思考”。</td>
+        <td><span class="cmp">相对 Sonnet-3.7（同评测）：</span>7B 在 BIRD dev 上 60.1（贪心）/ 64.2（投票），高 1.6 / 4.1；只用 1,873 条训练数据，比单轮 RL 数据效率高 7–18 倍。</td>
+        <td>需要可交互的执行环境；多轮交互增加延迟与成本；BIRD 未参与训练（作者自述）。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">ReToolSQL</span><span class="yr">2026.08 首次提交</span><span class="pmeta">Kakkar et al., 2026, arXiv · <a href="https://arxiv.org/abs/2608.27796">2608.27796</a></span><span class="domain sql">BIRD</span></td>
+        <td><span class="tr yes">是</span><span class="trn">SFT＋多轮智能体强化微调</span></td>
+        <td>多数执行反馈 RL 仍把生成当单轮任务，模型学不到从错误中恢复。</td>
+        <td class="steps"><span>① SFT：用经执行验证、拒绝采样得到的“特权教师”轨迹预热；</span><span>② 多轮工具使用轨迹上做智能体强化微调（RFT）；</span><span>③ 学会何时验证、取什么证据、如何根据执行反馈修 SQL。</span></td>
+        <td><span class="ftag">规则概括</span>两阶段分工：SFT 扩大 pass@k 覆盖（难题上能做对的题变多），RFT 把它转成单次准确率。</td>
+        <td><span class="cmp">相对单独 RFT（Gemma 4 31B）：</span>RFT 73.66；SFT→RFT 74.32（单次）/ 74.77（自洽），发表时 BIRD 单模型榜首。</td>
+        <td>31B 级别模型，训练成本高；特权教师轨迹需要额外信息构造〔分析〕。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>SQL 里已有多篇“用执行反馈训练多轮修正”的工作，相当于 SCoRe 在 SQL 上的对应物。</li><li>ReToolSQL 明确区分了“扩大覆盖率”和“提高单次准确率”两种作用，与我们的覆盖率假设直接相关。</li></ul></div>
+    <div class="box next"><h3>需要继续验证〔分析〕</h3><ul><li>这些工作都在 RL 中保留全部有奖励的轨迹；“多轮自训练时该保留哪些修正轨迹”在本次阅读的论文里没有被单独研究，但需更完整检索才能确认。</li><li>多轮修正的收益是否也伴随 SCoRe 所说的“学会不改”？多数论文未报告修正前后的翻转率（错→对、对→错）。</li></ul></div>
+  </div>
+  <p class="src">Zhai et al. (2025)；Dai et al. (2025)；Xu et al. (2025)；Hua et al. (2026)；Kakkar et al. (2026)。</p>
+</section>
+
+<!-- ======================= G4 ======================= -->
+<section class="group" id="g4">
+  <div class="ghead"><h2>4｜Text-to-SQL：人类自然语言反馈</h2><span class="badge sql">Text-to-SQL</span></div>
+  <p class="gsub">反馈来自不懂 SQL 的用户：系统先解释自己生成的 SQL，用户用自然语言指出哪里不对。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">SPLASH</span><span class="yr">2020.05 首次提交</span><span class="pmeta">Elgohary et al., ACL 2020 · <a href="https://arxiv.org/abs/2005.02539">2005.02539</a></span><span class="domain sql">Spider 问题</span></td>
+        <td><span class="tr yes">是</span><span class="trn">训练修正模型（基线）</span></td>
+        <td>语义解析通常是一次性翻译；用户发现错误后无法纠正系统。</td>
+        <td class="steps"><span>① 用 Spider 问题生成错误 SQL；</span><span>② 把 SQL 解释成自然语言步骤给众包工人看；</span><span>③ 不懂 SQL 的工人用自然语言写反馈；</span><span>④ 训练“问题＋错误 SQL＋解释＋反馈→正确 SQL”的修正模型。</span></td>
+        <td><span class="f" data-tex="\hat y = f(q,\ s,\ y_0,\ e,\ fb)"></span><span class="ftag">本次整理：任务定义</span>q：问题；s：schema；y<sub>0</sub>：错误 SQL；e：系统解释；fb：用户反馈。</td>
+        <td><span class="cmp">相对不用反馈：</span>加入反馈能显著提升修正；人类修正准确率估计为 81.5%。</td>
+        <td>最好的模型修正准确率只有 25.1%，与人类差距大；对 EditSQL 自身的错误，修正准确率 14.6%。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">NL-EDIT</span><span class="yr">2021.03 首次提交</span><span class="pmeta">Elgohary et al., NAACL 2021 · <a href="https://arxiv.org/abs/2103.14540">2103.14540</a></span><span class="domain sql">SPLASH</span></td>
+        <td><span class="tr yes">是</span><span class="trn">训练编辑生成模型</span></td>
+        <td>直接重新生成整条 SQL 难以准确落实用户反馈。</td>
+        <td class="steps"><span>① 把反馈解读为一串编辑操作（替换列、增删 WHERE 条件、去掉 LIMIT 等）；</span><span>② 把编辑作用在原 SQL 上；</span><span>③ 用模板合成反馈数据扩充训练。</span></td>
+        <td><span class="f" data-tex="\hat y=\mathrm{apply}(y_0,\ \mathbf e),\quad \mathbf e\sim p_\theta(\cdot\mid q,\ y_0,\ fb)"></span><span class="ftag">本次整理</span>输出的是编辑序列，而不是整条新 SQL。</td>
+        <td><span class="cmp">相对 EditSQL+Feedback：</span>修正准确率 25.16→41.17；一轮修正最多让已有解析器提升 20%。</td>
+        <td>需要修改的编辑超过 2 处时准确率显著下降；只考察一轮反馈。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>人类反馈是最强的外部信号，但模型利用它的能力远低于人类（25.1 vs 81.5）。</li><li>以编辑而非重写来修正，更容易落实反馈。</li></ul></div>
+    <div class="box next"><h3>需要继续验证</h3><ul><li>这条线早于大模型；用大模型模拟用户反馈（如 BIRD-INTERACT 的模拟用户）能否替代人工？</li></ul></div>
+  </div>
+  <p class="src">Elgohary et al. (2020)；Elgohary et al. (2021)。</p>
+</section>
+
+<!-- ======================= G5 ======================= -->
+<section class="group" id="g5">
+  <div class="ghead"><h2>5｜Text-to-SQL：修正到底有没有用（评估类）</h2><span class="badge sql">Text-to-SQL</span></div>
+  <p class="gsub">对应 Huang 等的角色：在受控条件下重测已有修正方法。</p>
+  <div class="tablewrap"><table>
+    <colgroup><col class="c1"><col class="c0"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"></colgroup>
+    <thead><tr><th>论文</th><th>有无训练</th><th>解决什么问题</th><th>主要贡献与关键步骤</th><th>核心公式与说明</th><th>优势与比较对象</th><th>局限与适用边界</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pname">MapleDoctor</span><span class="yr">2025.01 首次提交</span><span class="pmeta">Shen et al., FSE 2026 · <a href="https://arxiv.org/abs/2501.09310">2501.09310</a></span><span class="domain sql">Spider / BIRD，ICL 方法</span></td>
+        <td><span class="tr no">否</span><span class="trn">实证研究＋受约束提示的修复框架</span></td>
+        <td>基于上下文学习的 Text-to-SQL 错误有多普遍？已有修复方法是否有效？</td>
+        <td class="steps"><span>① 研究 4 种 ICL 方法、5 种基础修复方法、2 个基准、2 种模型设置；</span><span>② 归纳 27 种错误类型、7 大类；</span><span>③ 提出检测＋受约束修复的 MapleDoctor。</span></td>
+        <td><span class="ftag">无核心公式</span>评估指标：修复数量、误修复（把对的改错）数量、修复延迟。</td>
+        <td><span class="cmp">相对已有修复方法：</span>多修复 13.8%（15 条）查询，误修复减少 84.9%（45 条），延迟降 67.4%。</td>
+        <td>结论针对 ICL 方法；作者发现已有修复方法提升有限、开销大、误修复多。</td>
+      </tr>
+      <tr>
+        <td><span class="pname">Are These Modules Worth Their Cost?</span><span class="yr">2026.08 首次提交</span><span class="pmeta">Lin et al., 2026, arXiv · <a href="https://arxiv.org/abs/2608.28432">2608.28432</a></span><span class="domain sql">ICL Text-to-SQL 流水线</span></td>
+        <td><span class="tr no">否</span><span class="trn">评估研究，不训练</span></td>
+        <td>论文多只报端到端准确率，各模块的边际收益和成本不清楚。</td>
+        <td class="steps"><span>① 在统一实现下实例化 17 种范式配置，覆盖 5 类常见模块；</span><span>② 在 4 个能力与推理风格不同的底座上，归因每种范式的边际收益与成本。</span></td>
+        <td><span class="ftag">无核心公式</span>指标：边际准确率贡献与 token 成本。</td>
+        <td><span class="cmp">相对其他模块：</span>执行反馈修正是唯一在所有底座上都有收益、且成本一直较低的范式。</td>
+        <td>仅覆盖 ICL 流水线，不含训练类方法；摘要层面结论，细节以原文为准。</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="boxes">
+    <div class="box"><h3>比较结论</h3><ul><li>“无外部信号的修正”效果有限且常改错；“执行反馈修正”是最稳的一种。</li></ul></div>
+    <div class="box next"><h3>需要继续验证</h3><ul><li>评估类工作都只看 ICL 流水线；训练类修正（第 2、3 组）还缺同等受控的比较。</li></ul></div>
+  </div>
+  <p class="src">Shen et al. (2026)；Lin et al. (2026)。</p>
+</section>
+
+<!-- ======================= Summary ======================= -->
+<section class="group" id="sum">
+  <div class="ghead"><h2>总表：第 5 页两篇的结论，在 SQL 中的对应证据</h2></div>
+  <div class="tablewrap"><table style="min-width: 900px">
+    <thead><tr><th style="width:22%">第 5 页论文的结论</th><th style="width:40%">SQL 中的对应证据（论文结论）</th><th style="width:38%">对我们课题的含义〔分析〕</th></tr></thead>
+    <tbody>
+      <tr><td><b>Self-Refine：</b>同一模型写稿→自评→修改能提升多类任务</td><td>DIN-SQL、Self-Debug、MAGIC、ReFoRCE 把这一流程用于 SQL；有效时都借助了执行结果、报错或从训练集总结的指南（第 1 组）。</td><td>SQL 的“反馈”主要来自执行器；纯自评版本不应作为主要证据。</td></tr>
+      <tr><td><b>Huang 等：</b>没有外部信号时，自我修正无效甚至有害</td><td>GPT-4o 在 BIRD 上内在自我修正 55.87→55.28（SHARE）；整体式批评 49.87→45.12（SQLCritic）；已有修复误修复多（MapleDoctor）；在强底座上多数修正方法降分（ErrorLLM）。</td><td>结论在 SQL 中成立；评估修正时应报告“对→错”的翻转率，而不只是净准确率。</td></tr>
+      <tr><td><b>后续通用工作：</b>外部工具、找错、RL 训练</td><td>SQL 中分别对应：执行反馈修正（第 1、5 组）、专门的批改模型（第 2 组）、多轮执行反馈 RL（第 3 组）。</td><td>与我们最近的是第 3 组；本次阅读中未见研究“多轮自训练应保留哪些修正轨迹”的工作，需更完整检索。</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <p>本页对应仓库文件 docs/feedback_refinement_references.html 与 docs/feedback_refinement_references.md（后者含更多未展开的论文）。</p>
+  <p>数字均为各论文原文报告；不同论文的模型、数据划分与评测口径不同，不能直接排名。</p>
+</footer>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script>
+(function () {
+  document.querySelectorAll('.f[data-tex]').forEach(function (el) {
+    var tex = el.getAttribute('data-tex');
+    try {
+      if (window.katex) { katex.render(tex, el, { output: 'mathml', throwOnError: false, displayMode: false }); }
+      else { el.textContent = tex; }
+    } catch (e) { el.textContent = tex; }
+  });
+})();
+</script>
+</body>
+</html>

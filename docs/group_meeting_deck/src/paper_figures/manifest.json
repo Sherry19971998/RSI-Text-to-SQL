@@ -1,0 +1,146 @@
+{
+  "alpha": {
+    "arxiv": "2502.17248v2",
+    "url": "https://arxiv.org/pdf/2502.17248v2",
+    "pdf_page": 4,
+    "figure": 3,
+    "crop_points": [
+      54.5,
+      65.5,
+      541.25,
+      282
+    ],
+    "image": "alpha_fig3.png",
+    "source_pdf": "alpha_source.pdf",
+    "source_sha256": "a9496090222c172ffa5ca73b44784318dd65d0da7aadd70d3146adeeebaa514b",
+    "selection": "论文原文方法框架图；仅裁去图外正文与图注，未重绘或修改图内内容"
+  },
+  "csc": {
+    "arxiv": "2505.13271v2",
+    "url": "https://arxiv.org/pdf/2505.13271v2",
+    "pdf_page": 2,
+    "figure": 2,
+    "crop_points": [
+      145.5,
+      72.5,
+      449.75,
+      205.75
+    ],
+    "image": "csc_fig2.png",
+    "source_pdf": "csc_source.pdf",
+    "source_sha256": "8b2bf7cda47a206f98c8611bb06b06111929e6dd6bb334d884de83a50d5b5dd5",
+    "selection": "论文原文方法框架图；仅裁去图外正文与图注，未重绘或修改图内内容"
+  },
+  "r3": {
+    "arxiv": "2604.25325v1",
+    "url": "https://arxiv.org/pdf/2604.25325v1",
+    "pdf_page": 5,
+    "figure": 2,
+    "crop_points": [
+      107.5,
+      70.25,
+      490.75,
+      251.0
+    ],
+    "image": "r3_fig2.png",
+    "source_pdf": "r3_source.pdf",
+    "source_sha256": "50fd56a4a963545020af7280ccb5fad0963bb52c66ea8272fa70dac5a529c2a2",
+    "selection": "论文原文方法框架图；仅裁去图外正文与图注，未重绘或修改图内内容"
+  },
+  "dysql": {
+    "arxiv": "2510.26495v2",
+    "url": "https://arxiv.org/pdf/2510.26495v2",
+    "pdf_page": 3,
+    "figure": 2,
+    "crop_points": [
+      48.75,
+      55.5,
+      564.0,
+      338.75
+    ],
+    "image": "dysql_fig2.png",
+    "source_pdf": "dysql_source.pdf",
+    "source_sha256": "a196d2803bf225cc348bc66d55a2fc40da5bfad40aae5d15d27ba712dfe356fb",
+    "selection": "论文原文方法框架图；仅裁去图外正文与图注，未重绘或修改图内内容"
+  },
+  "birdint": {
+    "arxiv": "2510.05318v3",
+    "url": "https://arxiv.org/pdf/2510.05318v3",
+    "pdf_page": 2,
+    "figure": 1,
+    "crop_points": [
+      110.0,
+      84,
+      504.0,
+      249.5
+    ],
+    "image": "birdint_fig1.png",
+    "source_pdf": "birdint_source.pdf",
+    "source_sha256": "cb07ae25601b0cacf19ff0e57a17a48fd4e73bf82b1a54b69d2df8b776641a04",
+    "selection": "论文原文方法框架图；仅裁去图外正文与图注，未重绘或修改图内内容"
+  },
+  "mtsql": {
+    "arxiv": "2510.12831v3",
+    "url": "https://arxiv.org/pdf/2510.12831v3",
+    "pdf_page": 3,
+    "figure": 2,
+    "crop_points": [
+      66,
+      64,
+      530,
+      458
+    ],
+    "image": "mtsql_fig2.png",
+    "source_pdf": "mtsql_source.pdf",
+    "source_sha256": "3e699cd57c07816d2285da4bd04804f9694315b9b33956a944f0afbb8a09b408",
+    "selection": "原文方法图，裁去图外正文和图注，图内内容未重绘"
+  },
+  "conductor": {
+    "arxiv": "2606.23537v1",
+    "url": "https://arxiv.org/pdf/2606.23537v1",
+    "pdf_page": 4,
+    "figure": 2,
+    "crop_points": [
+      52,
+      77,
+      561,
+      394
+    ],
+    "image": "conductor_fig2.png",
+    "source_pdf": "conductor_source.pdf",
+    "source_sha256": "6ce60886b22b623b95fb8ddb1e2d71447e511144d3ed04f902e7fbb2f53c0fb3",
+    "selection": "原文方法图，裁去图外正文和图注，图内内容未重绘"
+  },
+  "raise": {
+    "arxiv": "2506.01273v1",
+    "url": "https://arxiv.org/pdf/2506.01273v1",
+    "pdf_page": 4,
+    "figure": 1,
+    "crop_points": [
+      122,
+      262,
+      497,
+      529
+    ],
+    "image": "raise_fig1.png",
+    "source_pdf": "raise_source.pdf",
+    "source_sha256": "9d274809290ee61602e078543ce57e39283dc199a98c2dac1cf46aa076e28a0d",
+    "selection": "原文方法图，裁去图外正文和图注，图内内容未重绘"
+  },
+  "serl": {
+    "arxiv": "2608.00485v4",
+    "url": "https://arxiv.org/pdf/2608.00485v4",
+    "pdf_page": 3,
+    "figure": 2,
+    "crop_points": [
+      52,
+      58,
+      561,
+      304
+    ],
+    "image": "serl_fig2.png",
+    "source_pdf": "serl_source.pdf",
+    "source_sha256": "8430e383450696a6b95b4e9c942c041aeebb9011fae8852c6dab90c0d177fb34",
+    "selection": "原文方法图，裁去图外正文和图注，图内内容未重绘"
+  }
+}

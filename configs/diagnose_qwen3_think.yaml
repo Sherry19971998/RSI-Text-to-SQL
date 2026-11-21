@@ -1,0 +1,11 @@
+# Qwen3-8B with thinking: longer outputs, so a larger token budget and context.
+base: diagnose.yaml
+model: Qwen/Qwen3-8B
+chat_template_kwargs: {enable_thinking: true}
+run_dir: runs/diag/qwen3_8b_think
+
+rollout:
+  max_model_len: 20480
+
+diag:
+  max_new_tokens: 6144

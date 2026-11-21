@@ -1,0 +1,12 @@
+# ~15-minute end-to-end check of the frontier pipeline on the server (2 rounds, tiny sizes).
+base: frontier.yaml
+run_dir: runs/frontier_smoke
+
+batches:
+  K: 20
+
+frontier:
+  seeds: [0]
+  horizon: 2
+  gen_questions: 40
+  eval_limit: 40

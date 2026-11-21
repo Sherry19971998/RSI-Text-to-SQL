@@ -1,0 +1,16 @@
+# Phase 3: does the set with the best immediate gain (U^1) also give the best multi-round gain (U^H)?
+# Round 1 = Phase 1 (its adapters are theta_1, its k=4 evaluations are U^1); rounds 2..H are new.
+base: default.yaml
+run_dir: runs/phase3
+
+phase3:
+  source_run: runs/phase1   # round-1 adapters, batches.json and eval_k{eval_k}/
+  per_strategy: 2           # sets carried forward per non-random strategy, chosen at random
+  random_sets: 4            # plus this many random-strategy sets
+  plan_seed: 0              # never select carried sets by their U^1 (regression to the mean)
+  seeds: [0, 1, 2]          # one independent lineage per training seed
+  horizon: 2                # last round (2 = one new round after Phase 1)
+  rule: random              # selection rule every branch uses at rounds >= 2 (any batches.py strategy)
+  gen_questions: 1500       # pool questions each lineage generates on per round (x rollout.n_samples)
+  eval_k: 4                 # sampled evaluation: pass rate over k samples per question
+  gamma: 1.0                # U^H = sum_h gamma^(h-1) dP_h

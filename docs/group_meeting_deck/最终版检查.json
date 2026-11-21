@@ -1,0 +1,48 @@
+{
+  "finalized_date": "2026-10-30",
+  "status": "final",
+  "slide_count": 41,
+  "main_slides": 13,
+  "preserved_final_file_sha256": {
+    "测试时计算与多轮TextToSQL_组会.pptx": "311a3818ca6b3a44f4f0501f25cba33ab78dcd3f8147684863b71e9e32b982f2",
+    "测试时计算与多轮TextToSQL_组会.pdf": "2facfbe01889ee73ea8b67db090cddc28ee5448f590d8d60ded044a516452d3e",
+    "讲稿.md": "0d0da8a1a33e0f75311a74916acbae414199ed5e4d727ea12386452e5106712a",
+    "讲稿.docx": "51d70d56b0638d6b3c3122844e574ed40c68a07ba9089931359c8259ea6ddde4",
+    "交互式SQL_原文细读与idea依据.docx": "5b32f141b6740273929e8e8d85e6f38e819f14f23ff4cbb9472429a6c3fdf465",
+    "layout.pkl": "7df3dd20828b26af12427c020fa5902e40b77e6ac763c57fcb4ab940a9f8049e"
+  },
+  "final_file_contents_unchanged": true,
+  "notes_match_markdown": true,
+  "word_screenshots_match_preview": true,
+  "pdf_page_count": 41,
+  "deleted_folders": [
+    {
+      "path": "group_meeting_deck/历史版本",
+      "files": 656,
+      "bytes": 287328398
+    },
+    {
+      "path": "slides_test_time_compute",
+      "files": 14,
+      "bytes": 26633
+    },
+    {
+      "path": "slides_rsi_deck",
+      "files": 15,
+      "bytes": 51853
+    }
+  ],
+  "deleted_old_record_count": 29,
+  "inherited_pending_source_questions": [
+    "R³-SQL式2阈值定义",
+    "R³-SQL表8/表10 always-resample 数字差异",
+    "R³-SQL端到端计时范围未明确",
+    "DySQL-Bench 1072/1062题数差异",
+    "BIRD-INTERACT主实验模拟用户底座未明确定位"
+  ],
+  "scope_notes": [
+    "本次只确定最终版并清理旧版本；未修改PPT和讲稿内容，未重建当前文件。",
+    "最终材料中的计划、未实现能力和原文疑点继续保留；本次未重新审校论文、复现实验或修改训练代码。",
+    "交互式SQL原文细读文档为参考资料，不是另一版演讲稿；源码、源论文和当前预览保留。"
+  ]
+}

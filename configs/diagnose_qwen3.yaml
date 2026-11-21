@@ -1,0 +1,5 @@
+# Same ladder on Qwen3-8B, non-thinking mode. For thinking mode use diagnose_qwen3_think.yaml.
+base: diagnose.yaml
+model: Qwen/Qwen3-8B
+chat_template_kwargs: {enable_thinking: false}
+run_dir: runs/diag/qwen3_8b

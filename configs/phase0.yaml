@@ -1,0 +1,11 @@
+# Phase 0 go/no-go: noise floor + "can a short LoRA update move held-out accuracy at all?"
+# Three contrasting batches x 5 seeds. Sections here replace keys of the same section in base.
+base: default.yaml
+run_dir: runs/phase0
+
+batches:
+  seeds: [0, 1, 2, 3, 4]
+  plan:
+    random: 1
+    easy: 1
+    hard: 1
